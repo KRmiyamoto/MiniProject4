@@ -9,7 +9,7 @@ import structures.KeyNotFoundException;
 /**
  * Experiments with our AssociativeArray class.
  *
- * @author Your Name Here
+ * @author Keely Miyamoto
  * @author Samuel A. Rebelsky
  */
 public class AssociativeArrayExperiments {
@@ -21,7 +21,7 @@ public class AssociativeArrayExperiments {
   /**
    * Run the experiments.
    */
-  public static void main(String[] args) {
+  public static void main(String[] args) throws Exception {
     PrintWriter pen = new PrintWriter(System.out, true);
 
     divider(pen);
@@ -43,8 +43,8 @@ public class AssociativeArrayExperiments {
     AssociativeArray<String,String> s2s = 
       new ReportingAssociativeArray<String,String>("s2s", pen);
     s2s.size();
-    s2s.set("a", "apple");
-    s2s.set("A", "aardvark");
+    try { s2s.set("a", "apple"); } catch (Exception e) { }
+    try { s2s.set("A", "aardvark"); } catch (Exception e) { }
     s2s.size();
     s2s.hasKey("a");
     s2s.hasKey("A");
@@ -64,7 +64,7 @@ public class AssociativeArrayExperiments {
    * Our second experiment: Associative arrays with big integers as
    * keys and values.
    */
-  public static void experimentBigIntToBigInt(PrintWriter pen) {
+  public static void experimentBigIntToBigInt(PrintWriter pen) throws Exception{
     AssociativeArray<BigInteger,BigInteger> b2b =
       new ReportingAssociativeArray<BigInteger,BigInteger>("b2b", pen);
 
