@@ -60,12 +60,12 @@ public class AssociativeArray<K, V> {
     // Build new AssociativeArray
     AssociativeArray<K, V> copy = new AssociativeArray<K, V>();
 
-    // Expand copy to at least this.size
+    // Expand copy to at least this.size.
     while (copy.size() < this.size()) {
       copy.expand();
     } // while
     
-    // Set each index in array to same KVPair as in 'this' AssociativeArray
+    // Set each index in array to same KVPair as in 'this' AssociativeArray.
     for (int i =0; i < this.size(); i++) {
       try {
         copy.set(this.pairs[i].key, this.pairs[i].value);
@@ -85,7 +85,7 @@ public class AssociativeArray<K, V> {
     // Define string to-be-returned.
     String retString = "";
 
-    // For each index in the AssociativeArray
+    // For each index in the AssociativeArray...
     for (int i = 0; i < this.size(); i++) {
       while (i != (this.size() - 1)) {
       retString = retString.concat(this.pairs[i].key.toString() + ": " + this.pairs[i].value.toString() + ", ");
@@ -105,18 +105,40 @@ public class AssociativeArray<K, V> {
    * get(key) will return value.
    */
   public void set(K key, V value) throws NullKeyException {
-    // STUB
+    // Check if given key is already in the AssociativeArray.
+    try {
+      // If so, update current value to given value.
+      pairs[find(key)].value = value;
+    } catch (KeyNotFoundException e) {
+      // Otherwise, check if AssociativeArray is full.
+      if (this.size() >= this.pairs.length) {
+        this.expand();
+      } // if
+
+      // After current last index, set given KVPair.
+      pairs[this.size()] = new KVPair<K, V>(key, value);
+
+      // Increment size.
+      this.size++;
+    }
   } // set(K,V)
 
   /**
    * Get the value associated with key.
    *
    * @throws KeyNotFoundException
-   *                              when the key is null or does not 
-   *                              appear in the associative array.
+   * when the key is null or does not 
+   * appear in the associative array.
    */
   public V get(K key) throws KeyNotFoundException {
-    return null; // STUB
+    // Check if given key is in the AssociativeArray.
+    if (hasKey(key)) {
+      // If so, return associated value.
+      return this.pairs[find(key)].value;
+    } else {
+      // Otherwise, throw Exception.
+      throw new KeyNotFoundException();
+    } // if
   } // get(K)
 
   /**
@@ -124,7 +146,13 @@ public class AssociativeArray<K, V> {
    * return false for the null key.
    */
   public boolean hasKey(K key) {
-    return false; // STUB
+    // Traverse AssociativeArray, checking if each KVPair has given key.
+    for (int i = 0; i < this.size; i++) {
+      if (this.pairs[i].key.equals(key)) {
+        return true;
+      } // 
+    } // for
+    return false;
   } // hasKey(K)
 
   /**
