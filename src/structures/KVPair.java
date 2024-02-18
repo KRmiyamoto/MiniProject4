@@ -3,6 +3,9 @@ package structures;
 /**
  * An easy way to store key/value pairs.  We assume that other
  * classes will access fields directly.
+ * 
+ * @author Sam Rebelsky
+ * @author Keely Miyamoto
  */
 class KVPair<K,V> {
   // +--------+------------------------------------------------------

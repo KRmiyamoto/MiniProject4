@@ -1,8 +1,25 @@
-Associative Arrays
-==================
+Mini-Project 4: Associative Arrays
+==================================
 
-Starter code for a project on associative arrays.
 
-_Students should replace the contents of this file with appropriate
-contents, including author and date._
+Author: Keely Miyamoto
 
+
+Date: Due February 21, 2024
+
+
+Course: CSC-207-01 (Prof. Rebelsky)
+
+
+
+Description: Code for a project on associative arrays. 
+Building a data structucture using generics/parametric polymorphism.
+
+
+Resources:
+Mini-Project 4: Associative arrays - Instructions for assignment completion.
+
+Eboard 11: Generics - AssociativeArray design exercise. Dicussion of basic 
+considerations for implementing get, set, and remove.
+
+AssociativeArrayTests - Shared GitHub repo including tests for all procedures.

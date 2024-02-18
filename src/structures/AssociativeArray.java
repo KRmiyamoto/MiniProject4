@@ -7,7 +7,7 @@ import static java.lang.reflect.Array.newInstance;
  * and values of type V. Associative Arrays store key/value pairs
  * and permit you to look up values by key.
  *
- * @author Your Name Here
+ * @author Keely Miyamoto
  * @author Samuel A. Rebelsky
  */
 public class AssociativeArray<K, V> {
@@ -57,14 +57,43 @@ public class AssociativeArray<K, V> {
    * Create a copy of this AssociativeArray.
    */
   public AssociativeArray<K, V> clone() {
-    return null; // STUB
+    // Build new AssociativeArray
+    AssociativeArray<K, V> copy = new AssociativeArray<K, V>();
+
+    // Expand copy to at least this.size
+    while (copy.size() < this.size()) {
+      copy.expand();
+    } // while
+    
+    // Set each index in array to same KVPair as in 'this' AssociativeArray
+    for (int i =0; i < this.size(); i++) {
+      try {
+        copy.set(this.pairs[i].key, this.pairs[i].value);
+      } catch (Exception NullKeyException) {
+        java.io.PrintWriter pen = new java.io.PrintWriter(System.err, true);
+        pen.println("Failure to initialize copy using original AssociativeArray keys.");
+      } // try
+    } // for
+    
+    return copy;
   } // clone()
 
   /**
    * Convert the array to a string.
    */
   public String toString() {
-    return "{}"; // STUB
+    // Define string to-be-returned.
+    String retString = "";
+
+    // For each index in the AssociativeArray
+    for (int i = 0; i < this.size(); i++) {
+      while (i != (this.size() - 1)) {
+      retString = retString.concat(this.pairs[i].key.toString() + ": " + this.pairs[i].value.toString() + ", ");
+      }
+      retString = retString.concat(this.pairs[i].key.toString() + ": " + this.pairs[i].value.toString());
+    } // for
+
+    return "{ " + retString + " }"; 
   } // toString()
 
   // +----------------+----------------------------------------------
@@ -104,7 +133,25 @@ public class AssociativeArray<K, V> {
    * in the associative array, does nothing.
    */
   public void remove(K key) {
-    // STUB
+    // Check if given key is in the AssociativeArray
+    if (hasKey(key)) {
+      try {
+        // Set index of associated KVPair to null
+        int i = find(key);
+        pairs[i] = null;
+
+        // Find KVPair at last index and move to ith index; null last index.
+        if (i > 0) {
+          pairs[i] = this.pairs[this.size - 1];
+          pairs[this.size - 1] = null;
+        } // if
+
+        // Decrement size.
+        this.size--;
+      } catch (Exception e) {
+        // Do nothing
+      }
+    } // if
   } // remove(K)
 
   /**
