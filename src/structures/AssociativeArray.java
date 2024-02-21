@@ -136,7 +136,7 @@ public class AssociativeArray<K, V> {
    * when the key is null or does not 
    * appear in the associative array.
    */
-  public V get(K key) throws KeyNotFoundException {
+  public V get(K key) throws Exception {
     // Check if given key is in the AssociativeArray.
     if (hasKey(key)) {
       // If so, return associated value.
@@ -151,7 +151,11 @@ public class AssociativeArray<K, V> {
    * Determine if key appears in the associative array. Should
    * return false for the null key.
    */
-  public boolean hasKey(K key) {
+  public boolean hasKey(K key) throws NullKeyException {
+    // Throw NullKeyException if given key is null.
+    if (key.equals(null)) {
+      throw new NullKeyException();
+    } // if
     // Traverse AssociativeArray, checking if each KVPair has given key.
     for (int i = 0; i < this.size; i++) {
       if (this.pairs[i].key.equals(key)) {
@@ -166,7 +170,7 @@ public class AssociativeArray<K, V> {
    * to get(key) will throw an exception. If the key does not appear
    * in the associative array, does nothing.
    */
-  public void remove(K key) {
+  public void remove(K key) throws Exception {
     // Check if given key is in the AssociativeArray
     if (hasKey(key)) {
       try {
