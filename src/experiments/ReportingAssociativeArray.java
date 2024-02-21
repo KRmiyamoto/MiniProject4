@@ -60,7 +60,7 @@ public class ReportingAssociativeArray<K,V> extends AssociativeArray<K,V> {
    * @throws KeyNotFoundException
    *   when the key does not appear in the associative array.
    */
-  public V get(K key) throws KeyNotFoundException {
+  public V get(K key) throws Exception {
     pen.print(name + ".get(" + key + ") = ");
     pen.flush();
     try {
@@ -79,9 +79,14 @@ public class ReportingAssociativeArray<K,V> extends AssociativeArray<K,V> {
   public boolean hasKey(K key) {
     pen.print(name + ".hasKey(" + key + ") = ");
     pen.flush();
-    boolean result = super.hasKey(key);
-    pen.println(result);
-    return result;
+    try {
+      boolean result = super.hasKey(key);
+      pen.println(result);
+      return result;
+    } catch (NullKeyException nke) {
+      pen.println("Error: Cannot find null key.");
+      return false;
+    }
   } // hasKey(K)
 
   /**
@@ -89,7 +94,7 @@ public class ReportingAssociativeArray<K,V> extends AssociativeArray<K,V> {
    * to get(key) will throw an exception.  If the key does not appear
    * in the associative array, does nothing.
    */
-  public void remove(K key) {
+  public void remove(K key) throws Exception{
     pen.println(name + ".remove(" + key + ")");
     super.remove(key);
     pen.println("  " + name + ": " + this.toString());
