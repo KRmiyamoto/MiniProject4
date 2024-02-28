@@ -111,11 +111,13 @@ public class AssociativeArrayExperiments {
       try { arr.set(i, i + 1); } catch (Exception e) { }
     }
     try { arr.hasKey(1); } catch (Exception e) { }
-    try { arr.hasKey(null); } catch (Exception e) { pen.println("Error: Cannot find null key."); }
+    // False: does not contain null key.
+    try { arr.hasKey(null); } catch (Exception e) {}
     try { arr.set(0, 0); } catch (Exception e) { }
     try { arr.set(null, 0); } catch (Exception e) { pen.println("Expected error: Cannot set null key."); }
     try { arr.remove(2); } catch (Exception e) { }
-    try { arr.remove(null); } catch (Exception e) { pen.println("Expected error: Cannot remove null key."); }
+    // No null key to remove; does nothing.
+    try { arr.remove(null); } catch (Exception e) {} 
     try { arr.get(6); } catch (Exception e) { }
     try { arr.get(null); } catch (Exception e) { pen.println("Expected error: Cannot get null key."); }
   } // expreimentStringsToStrings

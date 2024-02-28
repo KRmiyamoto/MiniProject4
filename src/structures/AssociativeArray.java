@@ -136,33 +136,28 @@ public class AssociativeArray<K, V> {
    * when the key is null or does not 
    * appear in the associative array.
    */
-  public V get(K key) throws Exception {
+  public V get(K key) throws KeyNotFoundException {
     // Check if given key is in the AssociativeArray.
-    if (hasKey(key)) {
-      // If so, return associated value.
+    try {
       return this.pairs[find(key)].value;
-    } else {
-      // Otherwise, throw Exception.
+    } catch (KeyNotFoundException e) {
       throw new KeyNotFoundException();
-    } // if
+    }
   } // get(K)
 
   /**
    * Determine if key appears in the associative array. Should
    * return false for the null key.
    */
-  public boolean hasKey(K key) throws NullKeyException {
-    // Throw NullKeyException if given key is null.
-    if (key.equals(null)) {
-      throw new NullKeyException();
-    } // if
-    // Traverse AssociativeArray, checking if each KVPair has given key.
-    for (int i = 0; i < this.size; i++) {
-      if (this.pairs[i].key.equals(key)) {
-        return true;
-      } // 
-    } // for
-    return false;
+  public boolean hasKey(K key) {
+    // Try to find 'key'. If Exception is thrown, return false.
+    try {
+      this.find(key);
+    } catch (KeyNotFoundException e) {
+      return false;
+    }
+    // Otherwise, return true.
+    return true;
   } // hasKey(K)
 
   /**
@@ -170,24 +165,22 @@ public class AssociativeArray<K, V> {
    * to get(key) will throw an exception. If the key does not appear
    * in the associative array, does nothing.
    */
-  public void remove(K key) throws Exception {
-    // Check if given key is in the AssociativeArray
-    if (hasKey(key)) {
-      try {
-        // Set index of associated KVPair to null
-        int i = find(key);
-        pairs[i] = null;
+  public void remove(K key) {
+  // Try to find given key in the AssociativeArray
+    try {
+      // Set index of associated KVPair to null
+      int i = find(key);
+      pairs[i] = null;
 
-        // Find KVPair at last index and move to ith index; null last index.
-        pairs[i] = this.pairs[this.size - 1];
-        pairs[this.size - 1] = null;
+      // Find KVPair at last index and move to ith index; null last index.
+      pairs[i] = this.pairs[this.size - 1];
+      pairs[this.size - 1] = null;
 
-        // Decrement size.
-        this.size--;
-      } catch (Exception e) {
-        // Do nothing
-      }
-    } // if
+      // Decrement size.
+      this.size--;
+    } catch (Exception e) {
+      // Do nothing
+    }
   } // remove(K)
 
   /**
