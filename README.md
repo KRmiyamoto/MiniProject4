@@ -1,6 +1,9 @@
 Mini-Project 4: Associative Arrays
 ==================================
 
+NOTES FOR RESUBMISSION: After a small change to my clone method + some small bug fixes in
+the shared testing repo, this submission should pass all of the tests in the test file.
+
 
 Author: Keely Miyamoto
 
